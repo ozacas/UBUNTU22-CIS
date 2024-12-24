@@ -149,6 +149,8 @@
 
 - name: Auditd rules reload
   ansible.builtin.shell: augenrules --load
+  failed_when: auditd_rules_reload.rc > 1
+  register: auditd_rules_reload
   when:
       - not auditd_immutable_check or '"No change" not in ubtu22cis_rule_4_1_3_21_augen_check.stdout'
 
